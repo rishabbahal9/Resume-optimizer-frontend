@@ -25,3 +25,15 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+## Adding material ui
+
+Add to styles.css:
+`@import "../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css";`
+
+Add this to index.html:
+`<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">`
+
+## For language localization and internalization
+
+https://angular.io/guide/i18n-overview
