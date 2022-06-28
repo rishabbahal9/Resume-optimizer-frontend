@@ -9,16 +9,15 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 import { HeaderComponent } from './header/header.component';
 import { BodyComponent } from './body/body.component';
+import { LoginComponent } from './body/login/login.component';
+import { SignupComponent } from './body/signup/signup.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HeaderComponent,
-    BodyComponent
-  ],
+  declarations: [AppComponent, HeaderComponent, BodyComponent, LoginComponent, SignupComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -26,9 +25,10 @@ import { BodyComponent } from './body/body.component';
     MatButtonModule,
     MatCardModule,
     MatToolbarModule,
-    MatIconModule
+    MatIconModule,
+    MatGridListModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
