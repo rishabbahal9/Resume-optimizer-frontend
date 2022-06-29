@@ -15,9 +15,10 @@ import { HeaderComponent } from './header/header.component';
 import { BodyComponent } from './body/body.component';
 import { LoginComponent } from './body/login/login.component';
 import { SignupComponent } from './body/signup/signup.component';
+import { PageNotFoundComponent } from './body/page-not-found/page-not-found.component';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, BodyComponent, LoginComponent, SignupComponent],
+  declarations: [AppComponent, HeaderComponent, BodyComponent, LoginComponent, SignupComponent, PageNotFoundComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
