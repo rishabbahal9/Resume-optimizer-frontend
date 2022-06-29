@@ -37,3 +37,5 @@ Add this to index.html:
 ## For language localization and internalization
 
 https://angular.io/guide/i18n-overview
+
+`ng extract-i18n --output-path src/locale`

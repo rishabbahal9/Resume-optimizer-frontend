@@ -1,0 +1,24 @@
+/* Mobile view */
+div.card-modified {
+    width: 90%;
+    display: block;
+    margin: auto;
+    margin-top: 20px;
+}
+
+div.card-header {
+    text-align: center;
+}
+
+/* Tablet view */
+@media screen and (min-width: 700px) {
+    div.card-modified {
+        width: 70%;
+    }
+}
+/* Desktop view */
+@media screen and (min-width: 1000px) {
+    div.card-modified {
+        width: 40%;
+    }
+}
