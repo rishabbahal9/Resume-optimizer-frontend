@@ -1,36 +1,83 @@
-<form>
+<div *ngIf="signupSuccessful">
+  <div class="alert alert-success" i18n>
+    <strong>Success!</strong> Signup successfull.
+  </div>
+</div>
+<div *ngIf="!signupSuccessful">
+  <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
     <div class="input-group">
       <span class="input-group-text" i18n>First name</span>
-      <input type="email" class="form-control" placeholder="First name" i18n i18n-placeholder />
+      <input
+        formControlName="firstName"
+        type="text"
+        class="form-control"
+        placeholder="First name"
+        i18n
+        i18n-placeholder
+      />
     </div>
     <div class="input-group">
       <span class="input-group-text" i18n>Last name</span>
-      <input type="email" class="form-control" placeholder="Last name" i18n i18n-placeholder />
+      <input
+        type="text"
+        formControlName="lastName"
+        class="form-control"
+        placeholder="Last name"
+        i18n
+        i18n-placeholder
+      />
     </div>
     <div class="input-group">
       <span class="input-group-text" i18n>Email</span>
-      <input type="email" class="form-control" placeholder="Enter your email" i18n i18n-placeholder />
+      <input
+        type="email"
+        class="form-control"
+        formControlName="email"
+        placeholder="Enter your email"
+        i18n
+        i18n-placeholder
+      />
     </div>
     <div class="input-group">
       <span class="input-group-text" i18n>Password</span>
-      <input type="password" class="form-control" placeholder="Create password" i18n i18n-placeholder />
+      <input
+        type="password"
+        class="form-control"
+        placeholder="Create password"
+        formControlName="password"
+        i18n
+        i18n-placeholder
+      />
     </div>
     <div class="input-group">
       <span class="input-group-text" i18n>Confirm Password</span>
-      <input type="password" class="form-control" placeholder="Confirm password" i18n i18n-placeholder />
+      <input
+        type="password"
+        class="form-control"
+        placeholder="Confirm password"
+        formControlName="confirmPassword"
+        i18n
+        i18n-placeholder
+      />
+    </div>
+    <!--Error div-->
+    <br />
+    <div class="alert alert-danger" role="alert" *ngIf="showError">
+      <b>Error: </b>{{ errorMessage }}
     </div>
     <div
       class="input-group"
       style="display: block; margin: 10px auto; text-align: center"
     >
-      <button type="button" class="btn btn-success" i18n>Submit</button>
+      <button type="submit" class="btn btn-success" i18n>Submit</button>
     </div>
-    
+
     <div
       class="input-group"
       style="display: block; margin: 0px auto; text-align: center"
     >
-    <a style="text-decoration: none;" href="login" i18n>Registered already?</a><br/>
+      <a style="text-decoration: none" href="login" i18n>Registered already?</a
+      ><br />
     </div>
   </form>
-  
+</div>
