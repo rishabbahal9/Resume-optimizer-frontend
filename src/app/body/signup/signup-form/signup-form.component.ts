@@ -38,6 +38,10 @@ export class SignupFormComponent implements OnInit {
         throw Error('Email missing');
       } else if (!email?.includes('@')) {
         throw Error('Invalid email');
+      } else if (password?.trim() == '') {
+        throw Error('Passsword missing');
+      } else if (confirmPassword?.trim() == '') {
+        throw Error('Please confirm the password');
       } else if (password != confirmPassword) {
         throw Error("Passwords don't match");
       } else {
@@ -61,8 +65,9 @@ export class SignupFormComponent implements OnInit {
               }, 3000);
             },
             error: (error) => {
-              console.log('Error');
-              console.log(error);
+              this.showError = true;
+              this.errorMessage =
+                "Couldn't register you. (Email might be already registered)";
             },
           });
       }
