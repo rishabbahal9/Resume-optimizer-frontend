@@ -31,19 +31,19 @@ export class SignupFormComponent implements OnInit {
     // Form validations
     try {
       if (firstName?.trim() == '') {
-        throw Error('First name missing');
+        throw Error($localize`First name missing`);
       } else if (lastName?.trim() == '') {
-        throw Error('Last name missing');
+        throw Error($localize`Last name missing`);
       } else if (email?.trim() == '') {
-        throw Error('Email missing');
+        throw Error($localize`Email missing`);
       } else if (!email?.includes('@')) {
-        throw Error('Invalid email');
+        throw Error($localize`Invalid email`);
       } else if (password?.trim() == '') {
-        throw Error('Passsword missing');
+        throw Error($localize`Passsword missing`);
       } else if (confirmPassword?.trim() == '') {
-        throw Error('Please confirm the password');
+        throw Error($localize`Please confirm the password`);
       } else if (password != confirmPassword) {
-        throw Error("Passwords don't match");
+        throw Error($localize`Passwords don't match`);
       } else {
         this.showError = false;
         this.errorMessage = '';
@@ -67,7 +67,7 @@ export class SignupFormComponent implements OnInit {
             error: (error) => {
               this.showError = true;
               this.errorMessage =
-                "Couldn't register you. (Email might be already registered)";
+              $localize`Couldn't register you. (Email might be already registered)`;
             },
           });
       }
