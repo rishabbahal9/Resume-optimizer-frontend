@@ -18,8 +18,17 @@ export class LoginFormComponent implements OnInit {
   });
 
   onSubmit() {
-    const email=this.loginForm.get('email')?.value;
-    const password=this.loginForm.get('password')?.value;
-    this.authService.login(email?email:'', password?password:'')
+    const email = this.loginForm.get('email')?.value;
+    const password = this.loginForm.get('password')?.value;
+    this.authService
+      .login(email ? email : '', password ? password : '')
+      .subscribe({
+        next: (data) => {
+          console.log(data);
+        },
+        error: (error) => {
+          console.log(error);
+        },
+      });
   }
 }

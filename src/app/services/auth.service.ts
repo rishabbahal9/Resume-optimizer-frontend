@@ -1,18 +1,19 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  backend_url: String = 'http://localhost:8000';
+  backend_url: String = environment.backend_url;
   constructor(private http: HttpClient) {}
 
   login(email: string, password: string) {
-    // return this.http.post(this.backend_url + '/signup', {
-    //   email: email,
-    //   password: password,
-    // });
+    return this.http.post(this.backend_url + '/auth/token/', {
+      email: email,
+      password: password,
+    });
   }
 
   logout() {
@@ -24,7 +25,6 @@ export class AuthService {
     lastName: string,
     email: string,
     password: string,
-    confirmPassword: string
   ) {
     return this.http.post(this.backend_url + '/auth/register', {
       first_name: firstName,

@@ -53,7 +53,6 @@ export class SignupFormComponent implements OnInit {
             lastName ? lastName : '',
             email ? email : '',
             password ? password : '',
-            confirmPassword ? confirmPassword : ''
           )
           .subscribe({
             next: (data) => {
