@@ -12,12 +12,15 @@ export class SignupFormComponent implements OnInit {
   errorMessage: String = '';
   signupSuccessful: Boolean = false;
   showLoader: Boolean = false;
+  existingEmails: Array<String> = [];
+  emailExists: Boolean = false;
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {}
   signupForm = new FormGroup({
     firstName: new FormControl('', [Validators.required]),
     lastName: new FormControl('', [Validators.required]),
+    gender: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [
       Validators.required,
@@ -30,8 +33,10 @@ export class SignupFormComponent implements OnInit {
   });
 
   onSubmit() {
+    console.log(this.signupForm.value);
     const firstName = this.signupForm.get('firstName')?.value;
     const lastName = this.signupForm.get('lastName')?.value;
+    const gender = this.signupForm.get('gender')?.value;
     const email = this.signupForm.get('email')?.value;
     const password = this.signupForm.get('password')?.value;
     const confirmPassword = this.signupForm.get('confirmPassword')?.value;
@@ -42,26 +47,45 @@ export class SignupFormComponent implements OnInit {
         .signup(
           firstName ? firstName : '',
           lastName ? lastName : '',
+          gender ? gender : '',
           email ? email : '',
           password ? password : ''
         )
         .subscribe({
           next: (data) => {
+            console.log('data');
+            console.log(data);
             this.showLoader = false;
             this.signupSuccessful = true;
+            this.showError = false;
+            this.errorMessage = $localize``;
             setTimeout(() => {
               this.router.navigate(['/']);
             }, 3000);
           },
           error: (error) => {
+            console.log(error);
+            if (error.statusText === 'Bad Request') {
+              this.showError = false;
+              this.errorMessage = $localize``;
+              if (email && email != '') {
+                this.existingEmails.push(email);
+                this.emailExists = true;
+              }
+            } else if (error.statusText === 'Unknown Error') {
+              this.showError = true;
+              this.errorMessage = $localize`Unable to connect, check your connection`;
+            }
             this.showLoader = false;
-            this.showError = true;
-            this.errorMessage = $localize`Couldn't register you. (Email might be already registered)`;
           },
         });
     } else {
       this.showError = true;
       this.errorMessage = $localize`Form is invalid`;
     }
+  }
+
+  checkEmailExists(emailString: String) {
+    this.emailExists = this.existingEmails.includes(emailString);
   }
 }

@@ -23,6 +23,7 @@ export class AuthService {
   signup(
     firstName: string,
     lastName: string,
+    gender: string,
     email: string,
     password: string,
   ) {
@@ -30,6 +31,7 @@ export class AuthService {
       first_name: firstName,
       last_name: lastName,
       username: firstName,
+      gender: gender,
       email: email,
       password: password,
     });

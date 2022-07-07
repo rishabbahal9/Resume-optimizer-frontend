@@ -1,4 +1,4 @@
-<div style="text-align: center; padding: 50px 0px" *ngIf="showLoader">
+<div style="text-align: center; padding: 10px 0px" *ngIf="showLoader">
   <div class="spinner-border text-primary" role="status">
     <span class="visually-hidden">Loading...</span>
   </div>
@@ -74,14 +74,43 @@
       Last name required.
     </div>
     <div class="input-group">
+      <span class="input-group-text" i18n>Gender</span>
+      <select class="form-select" id="sel1" name="gender" [ngClass]="
+      signupForm.controls.gender.valid
+        ? 'is-valid'
+        : signupForm.controls.gender.touched
+        ? 'is-invalid'
+        : ''
+    " formControlName="gender"
+    >
+        <option value="" disabled selected i18n>Select from the dropdown</option>
+        <option value="male" i18n>Male</option>
+        <option value="female" i18n>Female</option>
+        <option value="other" i18n>Other</option>
+      </select>
+    </div>
+    <div
+      class="feedback"
+      *ngIf="
+        !signupForm.controls.gender.valid &&
+        signupForm.controls.gender.touched
+      "
+      i18n
+    >
+      Gender required.
+    </div>
+    <div class="input-group">
       <span class="input-group-text" i18n>Email</span>
       <input
         type="email"
         class="form-control"
         formControlName="email"
+        (ngModelChange)="checkEmailExists($event)"
         [ngClass]="
           signupForm.controls.email.valid
-            ? 'is-valid'
+            ? emailExists
+              ? 'is-invalid'
+              : 'is-valid'
             : signupForm.controls.email.touched
             ? 'is-invalid'
             : ''
@@ -114,6 +143,7 @@
     >
       Email invalid.
     </div>
+    <div class="feedback" *ngIf="emailExists" i18n>Email exists.</div>
     <div class="input-group">
       <span class="input-group-text" i18n>Password</span>
       <input
@@ -193,7 +223,8 @@
       *ngIf="
         signupForm.controls.confirmPassword.touched &&
         signupForm.controls.confirmPassword.value != '' &&
-        signupForm.controls.confirmPassword.value != signupForm.controls.password.value
+        signupForm.controls.confirmPassword.value !=
+          signupForm.controls.password.value
       "
       i18n
     >
@@ -215,7 +246,9 @@
           signupForm.valid
             ? signupForm.controls.password.value ==
               signupForm.controls.confirmPassword.value
-              ? false
+              ? emailExists
+                ? true
+                : false
               : true
             : true
         "
