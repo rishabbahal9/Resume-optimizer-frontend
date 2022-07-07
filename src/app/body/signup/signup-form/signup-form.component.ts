@@ -21,6 +21,7 @@ export class SignupFormComponent implements OnInit {
     firstName: new FormControl('', [Validators.required]),
     lastName: new FormControl('', [Validators.required]),
     gender: new FormControl('', [Validators.required]),
+    dateOfBirth: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [
       Validators.required,
@@ -33,10 +34,10 @@ export class SignupFormComponent implements OnInit {
   });
 
   onSubmit() {
-    console.log(this.signupForm.value);
     const firstName = this.signupForm.get('firstName')?.value;
     const lastName = this.signupForm.get('lastName')?.value;
     const gender = this.signupForm.get('gender')?.value;
+    const dateOfBirth = this.signupForm.get('dateOfBirth')?.value;
     const email = this.signupForm.get('email')?.value;
     const password = this.signupForm.get('password')?.value;
     const confirmPassword = this.signupForm.get('confirmPassword')?.value;
@@ -48,13 +49,12 @@ export class SignupFormComponent implements OnInit {
           firstName ? firstName : '',
           lastName ? lastName : '',
           gender ? gender : '',
+          dateOfBirth ? dateOfBirth : '',
           email ? email : '',
           password ? password : ''
         )
         .subscribe({
           next: (data) => {
-            console.log('data');
-            console.log(data);
             this.showLoader = false;
             this.signupSuccessful = true;
             this.showError = false;

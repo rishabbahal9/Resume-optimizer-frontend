@@ -75,15 +75,22 @@
     </div>
     <div class="input-group">
       <span class="input-group-text" i18n>Gender</span>
-      <select class="form-select" id="sel1" name="gender" [ngClass]="
-      signupForm.controls.gender.valid
-        ? 'is-valid'
-        : signupForm.controls.gender.touched
-        ? 'is-invalid'
-        : ''
-    " formControlName="gender"
-    >
-        <option value="" disabled selected i18n>Select from the dropdown</option>
+      <select
+        class="form-select"
+        id="sel1"
+        name="gender"
+        [ngClass]="
+          signupForm.controls.gender.valid
+            ? 'is-valid'
+            : signupForm.controls.gender.touched
+            ? 'is-invalid'
+            : ''
+        "
+        formControlName="gender"
+      >
+        <option value="" disabled selected i18n>
+          Select from the dropdown
+        </option>
         <option value="male" i18n>Male</option>
         <option value="female" i18n>Female</option>
         <option value="other" i18n>Other</option>
@@ -92,13 +99,31 @@
     <div
       class="feedback"
       *ngIf="
-        !signupForm.controls.gender.valid &&
-        signupForm.controls.gender.touched
+        !signupForm.controls.gender.valid && signupForm.controls.gender.touched
       "
       i18n
     >
       Gender required.
     </div>
+    <div class="input-group">
+      <span class="input-group-text" i18n>Date of birth</span>
+      <input formControlName="dateOfBirth" [ngClass]="
+      signupForm.controls.dateOfBirth.valid
+        ? 'is-valid'
+        : signupForm.controls.dateOfBirth.touched
+        ? 'is-invalid'
+        : ''
+    " class="form-control" type="date" />
+    </div>
+    <div
+    class="feedback"
+    *ngIf="
+      !signupForm.controls.dateOfBirth.valid && signupForm.controls.dateOfBirth.touched
+    "
+    i18n
+  >
+    Date of birth required.
+  </div>
     <div class="input-group">
       <span class="input-group-text" i18n>Email</span>
       <input

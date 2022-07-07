@@ -11,6 +11,7 @@ describe('AuthService', () => {
     firstName: 'abc',
     lastName: 'def',
     email: 'abc.def@test.com',
+    gender: 'other',
     password: 'test123',
   };
   beforeEach(() => {
@@ -39,6 +40,7 @@ describe('AuthService', () => {
         .signup(
           dummy_user.firstName,
           dummy_user.lastName,
+          dummy_user.gender,
           dummy_user.email,
           dummy_user.password
         )
@@ -47,6 +49,7 @@ describe('AuthService', () => {
             expect(data).toEqual({
               first_name: dummy_user.firstName,
               last_name: dummy_user.lastName,
+              gender: dummy_user.gender,
               email: dummy_user.email,
               username: dummy_user.firstName,
               id: 1,

@@ -24,14 +24,16 @@ export class AuthService {
     firstName: string,
     lastName: string,
     gender: string,
+    dateOfBirth: string,
     email: string,
-    password: string,
+    password: string
   ) {
     return this.http.post(this.backend_url + '/auth/register', {
       first_name: firstName,
       last_name: lastName,
       username: firstName,
       gender: gender,
+      date_of_birth: dateOfBirth,
       email: email,
       password: password,
     });
