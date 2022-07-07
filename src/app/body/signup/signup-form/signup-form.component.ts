@@ -14,6 +14,9 @@ export class SignupFormComponent implements OnInit {
   showLoader: Boolean = false;
   existingEmails: Array<String> = [];
   emailExists: Boolean = false;
+  underAge: Boolean = false;
+  invalidDOB: Boolean = false;
+  ageThreshold: number = 18;
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {}
@@ -87,5 +90,33 @@ export class SignupFormComponent implements OnInit {
 
   checkEmailExists(emailString: String) {
     this.emailExists = this.existingEmails.includes(emailString);
+  }
+
+  getAge(dateString: string) {
+    var today = new Date();
+    var birthDate = new Date(dateString);
+    var age = today.getFullYear() - birthDate.getFullYear();
+    var m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+    return age;
+  }
+
+  dobChange(dob: string) {
+    const age = this.getAge(dob);
+
+    console.log('age: ' + age);
+
+    if (age < this.ageThreshold && age >= 0) {
+      this.underAge = true;
+      this.invalidDOB = false;
+    } else if (age < 0) {
+      this.underAge = false;
+      this.invalidDOB = true;
+    } else {
+      this.underAge = false;
+      this.invalidDOB = false;
+    }
   }
 }

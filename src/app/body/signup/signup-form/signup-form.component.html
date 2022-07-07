@@ -107,23 +107,42 @@
     </div>
     <div class="input-group">
       <span class="input-group-text" i18n>Date of birth</span>
-      <input formControlName="dateOfBirth" [ngClass]="
-      signupForm.controls.dateOfBirth.valid
-        ? 'is-valid'
-        : signupForm.controls.dateOfBirth.touched
-        ? 'is-invalid'
-        : ''
-    " class="form-control" type="date" />
+      <input
+        formControlName="dateOfBirth"
+        [ngClass]="
+          signupForm.controls.dateOfBirth.valid
+            ? underAge
+              ? 'is-invalid'
+              : invalidDOB
+              ? 'is-invalid'
+              : 'is-valid'
+            : signupForm.controls.dateOfBirth.touched
+            ? 'is-invalid'
+            : ''
+        "
+        class="form-control"
+        (ngModelChange)="dobChange($event)"
+        type="date"
+      />
     </div>
+
     <div
-    class="feedback"
-    *ngIf="
-      !signupForm.controls.dateOfBirth.valid && signupForm.controls.dateOfBirth.touched
-    "
-    i18n
-  >
-    Date of birth required.
-  </div>
+      class="feedback"
+      *ngIf="
+        !signupForm.controls.dateOfBirth.valid &&
+        signupForm.controls.dateOfBirth.touched
+      "
+      i18n
+    >
+      Date of birth required.
+    </div>
+
+    <div class="feedback" *ngIf="underAge" i18n>
+      You are under age of {{ ageThreshold }}, you can't signup.
+    </div>
+    <div class="feedback" *ngIf="invalidDOB" i18n>
+      Invalid date of birth selected.
+    </div>
     <div class="input-group">
       <span class="input-group-text" i18n>Email</span>
       <input
@@ -272,6 +291,8 @@
             ? signupForm.controls.password.value ==
               signupForm.controls.confirmPassword.value
               ? emailExists
+                ? true
+                : invalidDOB || underAge
                 ? true
                 : false
               : true
