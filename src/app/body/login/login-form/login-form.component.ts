@@ -10,9 +10,16 @@ import { User } from 'src/models/user.model';
   styleUrls: ['./login-form.component.css'],
 })
 export class LoginFormComponent implements OnInit {
+  isLoggedIn: Boolean = false;
   constructor(private authService: AuthService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.authService.getIsLoggedIn().subscribe((response) => {
+      console.log('response');
+      console.log(response);
+      this.isLoggedIn = response.isLoggedIn;
+    });
+  }
   loginForm = new FormGroup({
     email: new FormControl(''),
     password: new FormControl(''),
@@ -40,7 +47,7 @@ export class LoginFormComponent implements OnInit {
                 userObj.date_of_birth,
                 data.access
               );
-              console.log("loggedInUser");
+              console.log('loggedInUser');
               console.log(loggedInUser);
               this.authService.updateAuthenticationState(loggedInUser, true);
             },

@@ -8,7 +8,10 @@ import { User } from 'src/models/user.model';
   providedIn: 'root',
 })
 export class AuthService {
-  private isLoggedInSubject = new Subject<{user:User, isLoggedIn:Boolean}>();
+  private isLoggedInSubject = new Subject<{
+    user: User;
+    isLoggedIn: Boolean;
+  }>();
 
   backend_url: String = environment.backend_url;
   constructor(private http: HttpClient) {}
@@ -55,7 +58,34 @@ export class AuthService {
     return this.http.get(this.backend_url + '/auth/user');
   }
 
-  updateAuthenticationState(user: User, isLoggedIn:Boolean) {
-    this.isLoggedInSubject.next({user: user, isLoggedIn: isLoggedIn})
+  updateAuthenticationState(user: User, isLoggedIn: Boolean) {
+    this.isLoggedInSubject.next({ user: user, isLoggedIn: isLoggedIn });
+  }
+
+  autoLogin() {
+    console.log('autologin');
+    var access = localStorage.getItem('access');
+    if (access) {
+      this.getUser().subscribe({
+        next: (userObj: any) => {
+          const loggedInUser = new User(
+            userObj.first_name,
+            userObj.last_name,
+            userObj.email,
+            userObj.gender,
+            userObj.date_of_birth,
+            access?access:''
+          );
+          console.log('loggedInUser');
+          console.log(loggedInUser);
+          this.updateAuthenticationState(loggedInUser, true);
+        },
+        error: (err) => {
+          console.log(err);
+        },
+    })
+    } else {
+      this.updateAuthenticationState(new User('', '', '', '', '', ''), false);
+    }
   }
 }
