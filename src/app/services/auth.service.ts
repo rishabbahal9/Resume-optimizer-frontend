@@ -29,6 +29,9 @@ export class AuthService {
 
   logout() {
     return { loggedIn: false };
+    // Make request to backend
+    // remove from subject isLoggedIn false
+    // remove access and refresh from localStorage
   }
 
   signup(
@@ -74,7 +77,7 @@ export class AuthService {
             userObj.email,
             userObj.gender,
             userObj.date_of_birth,
-            access?access:''
+            access ? access : ''
           );
           console.log('loggedInUser');
           console.log(loggedInUser);
@@ -82,10 +85,33 @@ export class AuthService {
         },
         error: (err) => {
           console.log(err);
+          // Get new access token
+          this.getNewAccessToken();
         },
-    })
+      });
     } else {
       this.updateAuthenticationState(new User('', '', '', '', '', ''), false);
+    }
+  }
+  getNewAccessToken() {
+    const refresh = localStorage.getItem('refresh');
+    if (refresh) {
+      this.http
+        .post(this.backend_url + '/auth/token/refresh/', { refresh: refresh })
+        .subscribe({
+          next: (data: any) => {
+            console.log('refresh data');
+            console.log(data);
+            if (data.access) {
+              // update access token everywhere
+              localStorage.setItem('access', data.access);
+              // retry last request
+            }
+          },
+          error: (err) => {
+            console.log(err);
+          },
+        });
     }
   }
 }

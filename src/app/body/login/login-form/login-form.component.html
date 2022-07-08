@@ -22,4 +22,4 @@
   <a style="text-decoration: none;" href="forgot-password" i18n>Forgot password?</a>
   </div>
 </form>
-<h3 *ngIf="isLoggedIn">You are logged in.</h3>
+<h3 *ngIf="isLoggedIn">You are logged in {{userData?.firstName}}.</h3>

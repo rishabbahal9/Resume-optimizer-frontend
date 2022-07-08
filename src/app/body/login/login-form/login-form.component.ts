@@ -11,6 +11,7 @@ import { User } from 'src/models/user.model';
 })
 export class LoginFormComponent implements OnInit {
   isLoggedIn: Boolean = false;
+  userData:User|undefined=undefined;
   constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
@@ -18,6 +19,7 @@ export class LoginFormComponent implements OnInit {
       console.log('response');
       console.log(response);
       this.isLoggedIn = response.isLoggedIn;
+      this.userData=response.user;
     });
   }
   loginForm = new FormGroup({
