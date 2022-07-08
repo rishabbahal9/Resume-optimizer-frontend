@@ -1,13 +1,21 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { Observable, Subject } from 'rxjs';
+import { User } from 'src/models/user.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+  private isLoggedInSubject = new Subject<{user:User, isLoggedIn:Boolean}>();
+
   backend_url: String = environment.backend_url;
   constructor(private http: HttpClient) {}
+
+  getIsLoggedIn(): Observable<any> {
+    return this.isLoggedInSubject.asObservable();
+  }
 
   login(email: string, password: string) {
     return this.http.post(this.backend_url + '/auth/token/', {
@@ -41,5 +49,13 @@ export class AuthService {
 
   resetPassword() {
     return { passwordReset: true };
+  }
+
+  getUser() {
+    return this.http.get(this.backend_url + '/auth/user');
+  }
+
+  updateAuthenticationState(user: User, isLoggedIn:Boolean) {
+    this.isLoggedInSubject.next({user: user, isLoggedIn: isLoggedIn})
   }
 }

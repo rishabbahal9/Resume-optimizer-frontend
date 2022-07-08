@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,16 +17,35 @@ import { FormCardComponent } from './template/form-card/form-card.component';
 import { SignupFormComponent } from './body/signup/signup-form/signup-form.component';
 import { ForgotPasswordComponent } from './body/forgot-password/forgot-password.component';
 import { ForgotPasswordFormComponent } from './body/forgot-password/forgot-password-form/forgot-password-form.component';
+import { AuthInterceptorService } from './services/auth-interceptor.service';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, BodyComponent, LoginComponent, SignupComponent, PageNotFoundComponent, LoginFormComponent, FormCardComponent, SignupFormComponent, ForgotPasswordComponent, ForgotPasswordFormComponent],
+  declarations: [
+    AppComponent,
+    HeaderComponent,
+    BodyComponent,
+    LoginComponent,
+    SignupComponent,
+    PageNotFoundComponent,
+    LoginFormComponent,
+    FormCardComponent,
+    SignupFormComponent,
+    ForgotPasswordComponent,
+    ForgotPasswordFormComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
