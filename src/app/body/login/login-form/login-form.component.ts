@@ -11,7 +11,9 @@ import { User } from 'src/models/user.model';
 })
 export class LoginFormComponent implements OnInit {
   isLoggedIn: Boolean = false;
-  userData:User|undefined=undefined;
+  userData: User | undefined = undefined;
+  showError: Boolean = false;
+  errorMessage: string = '';
   constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
@@ -19,7 +21,7 @@ export class LoginFormComponent implements OnInit {
       console.log('response');
       console.log(response);
       this.isLoggedIn = response.isLoggedIn;
-      this.userData=response.user;
+      this.userData = response.user;
     });
   }
   loginForm = new FormGroup({
@@ -52,14 +54,20 @@ export class LoginFormComponent implements OnInit {
               console.log('loggedInUser');
               console.log(loggedInUser);
               this.authService.updateAuthenticationState(loggedInUser, true);
+              this.showError = false;
+              this.errorMessage = '';
             },
             error: (err) => {
               console.log(err);
+              this.showError = true;
+              this.errorMessage = $localize`Couldn't extract user data.`;
             },
           });
         },
         error: (error) => {
           console.log(error);
+          this.showError = true;
+          this.errorMessage = $localize`Invalid credentials. Check email and password.`;
         },
       });
   }
