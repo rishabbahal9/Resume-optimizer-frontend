@@ -9,7 +9,7 @@ import { User } from 'src/models/user.model';
 })
 export class AuthService {
   private isLoggedInSubject = new Subject<{
-    user: User;
+    user: User | null;
     isLoggedIn: Boolean;
   }>();
 
@@ -28,10 +28,25 @@ export class AuthService {
   }
 
   logout() {
-    return { loggedIn: false };
+    const refresh = localStorage.getItem('refresh');
     // Make request to backend
+    if (refresh) {
+      this.http
+        .post(this.backend_url + '/auth/logout', { refresh: refresh })
+        .subscribe({
+          next: (data) => {
+            console.log(data);
+          },
+          error: (err) => {
+            console.log(err);
+          },
+        });
+    }
     // remove from subject isLoggedIn false
+    this.isLoggedInSubject.next({ user: null, isLoggedIn: false });
     // remove access and refresh from localStorage
+    localStorage.removeItem('refresh');
+    localStorage.removeItem('access');
   }
 
   signup(
@@ -40,7 +55,7 @@ export class AuthService {
     gender: string,
     dateOfBirth: string,
     email: string,
-    password: string
+    password: string,
   ) {
     return this.http.post(this.backend_url + '/auth/register', {
       first_name: firstName,
@@ -106,6 +121,25 @@ export class AuthService {
               // update access token everywhere
               localStorage.setItem('access', data.access);
               // retry last request
+              this.getUser().subscribe({
+                next: (userObj: any) => {
+                  const loggedInUser = new User(
+                    userObj.first_name,
+                    userObj.last_name,
+                    userObj.email,
+                    userObj.gender,
+                    userObj.date_of_birth,
+                    data.access
+                  );
+                  console.log('loggedInUser');
+                  console.log(loggedInUser);
+                  this.updateAuthenticationState(loggedInUser, true);
+                },
+                error: (err) => {
+                  console.log(err);
+                  // Don't do anything here otherwise will go in loop
+                },
+              });
             }
           },
           error: (err) => {
