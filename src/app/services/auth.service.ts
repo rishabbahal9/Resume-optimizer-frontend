@@ -55,7 +55,7 @@ export class AuthService {
     gender: string,
     dateOfBirth: string,
     email: string,
-    password: string,
+    password: string
   ) {
     return this.http.post(this.backend_url + '/auth/register', {
       first_name: firstName,
@@ -76,7 +76,7 @@ export class AuthService {
     return this.http.get(this.backend_url + '/auth/user');
   }
 
-  updateAuthenticationState(user: User, isLoggedIn: Boolean) {
+  updateAuthenticationState(user: User | null, isLoggedIn: Boolean) {
     this.isLoggedInSubject.next({ user: user, isLoggedIn: isLoggedIn });
   }
 
@@ -92,6 +92,7 @@ export class AuthService {
             userObj.email,
             userObj.gender,
             userObj.date_of_birth,
+            userObj.profile_picture,
             access ? access : ''
           );
           console.log('loggedInUser');
@@ -105,7 +106,7 @@ export class AuthService {
         },
       });
     } else {
-      this.updateAuthenticationState(new User('', '', '', '', '', ''), false);
+      this.updateAuthenticationState(null, false);
     }
   }
   getNewAccessToken() {
@@ -129,6 +130,7 @@ export class AuthService {
                     userObj.email,
                     userObj.gender,
                     userObj.date_of_birth,
+                    userObj.profile_picture,
                     data.access
                   );
                   console.log('loggedInUser');

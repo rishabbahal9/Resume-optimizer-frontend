@@ -5,6 +5,7 @@ export class User {
     public email: string,
     public gender: string,
     public dateOfBirth: string,
+    public profilePicture: string,
     private _token: string
   ) {}
 
@@ -15,6 +16,7 @@ export class User {
       email: this.email,
       gender: this.gender,
       dateOfBirth: this.dateOfBirth,
+      profilePicture: this.profilePicture
     };
   }
 

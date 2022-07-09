@@ -49,6 +49,7 @@ export class LoginFormComponent implements OnInit {
                 userObj.email,
                 userObj.gender,
                 userObj.date_of_birth,
+                userObj.profile_picture,
                 data.access
               );
               console.log('loggedInUser');
