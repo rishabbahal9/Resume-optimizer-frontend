@@ -13,6 +13,7 @@ export class HomeComponent implements OnInit {
   constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
+    console.log("Home ngInit")
     this.authService.getIsLoggedIn().subscribe((response) => {
       console.log('response');
       console.log(response);
