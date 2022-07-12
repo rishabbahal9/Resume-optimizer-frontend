@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/models/user.model';
@@ -14,14 +15,14 @@ export class LoginFormComponent implements OnInit {
   userData: User | undefined = undefined;
   showError: Boolean = false;
   errorMessage: string = '';
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
-    this.authService.getIsLoggedIn().subscribe((response) => {
-      console.log('response');
-      console.log(response);
-      this.isLoggedIn = response.isLoggedIn;
-      this.userData = response.user;
+    this.authService.getIsLoggedIn().subscribe({
+      next: (response) => {
+        this.isLoggedIn = response.isLoggedIn;
+        this.userData = response.user;
+      },
     });
   }
   loginForm = new FormGroup({
@@ -36,7 +37,6 @@ export class LoginFormComponent implements OnInit {
       .login(email ? email : '', password ? password : '')
       .subscribe({
         next: (data: any) => {
-          console.log(data);
           // Save tokens in local storage
           localStorage.setItem('refresh', data.refresh);
           localStorage.setItem('access', data.access);
@@ -52,11 +52,11 @@ export class LoginFormComponent implements OnInit {
                 userObj.profile_picture,
                 data.access
               );
-              console.log('loggedInUser');
-              console.log(loggedInUser);
               this.authService.updateAuthenticationState(loggedInUser, true);
               this.showError = false;
               this.errorMessage = '';
+
+              this.router.navigate(['/']);
             },
             error: (err) => {
               console.log(err);

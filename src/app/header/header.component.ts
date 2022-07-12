@@ -14,13 +14,14 @@ export class HeaderComponent implements OnInit {
   constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
-    this.authService.getIsLoggedIn().subscribe((response) => {
-      this.isLoggedIn = response.isLoggedIn;
-      this.userData = response.user;
+    this.authService.getIsLoggedIn().subscribe({
+      next: (response) => {
+        this.isLoggedIn = response.isLoggedIn;
+        this.userData = response.user;
+      },
     });
   }
   onLogout() {
-    console.log('Logout pressed');
     this.authService.logout();
   }
 }

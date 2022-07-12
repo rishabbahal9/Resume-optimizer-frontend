@@ -19,6 +19,7 @@ import { ForgotPasswordComponent } from './body/forgot-password/forgot-password.
 import { ForgotPasswordFormComponent } from './body/forgot-password/forgot-password-form/forgot-password-form.component';
 import { AuthInterceptorService } from './services/auth-interceptor.service';
 import { HomeComponent } from './body/home/home.component';
+import { ProfileComponent } from './body/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { HomeComponent } from './body/home/home.component';
     ForgotPasswordComponent,
     ForgotPasswordFormComponent,
     HomeComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,

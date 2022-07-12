@@ -105,9 +105,6 @@ export class SignupFormComponent implements OnInit {
 
   dobChange(dob: string) {
     const age = this.getAge(dob);
-
-    console.log('age: ' + age);
-
     if (age < this.ageThreshold && age >= 0) {
       this.underAge = true;
       this.invalidDOB = false;

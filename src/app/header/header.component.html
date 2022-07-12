@@ -27,7 +27,7 @@
   <!-- Navbar links -->
   <div class="collapse navbar-collapse" id="collapsibleNavbar">
     <!--Left end-->
-    <ul class="navbar-nav mr-auto">
+    <!-- <ul class="navbar-nav mr-auto">
       <li class="nav-item">
         <a class="nav-link" href="#" i18n>Home</a>
       </li>
@@ -37,7 +37,7 @@
       <li class="nav-item">
         <a class="nav-link" href="#" i18n>Contact us</a>
       </li>
-    </ul>
+    </ul> -->
     <!--Right end-->
     <ul class="navbar-nav ml-auto">
       <!-- Dropdown -->
@@ -56,7 +56,7 @@
           {{ userData?.firstName }} {{ userData?.lastName }}
         </a>
         <div class="dropdown-menu">
-          <a class="dropdown-item" href="#">Profile</a>
+          <a class="dropdown-item" href="/profile">Profile</a>
           <a class="dropdown-item" href="#" (click)="onLogout()" i18n>
             Logout
           </a>

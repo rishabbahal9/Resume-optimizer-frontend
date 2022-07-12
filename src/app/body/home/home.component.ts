@@ -13,12 +13,14 @@ export class HomeComponent implements OnInit {
   constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
-    console.log("Home ngInit")
-    this.authService.getIsLoggedIn().subscribe((response) => {
-      console.log('response');
-      console.log(response);
-      this.isLoggedIn = response.isLoggedIn;
-      this.userData = response.user;
+    this.authService.getIsLoggedIn().subscribe({
+      next: (response) => {
+        this.isLoggedIn = response.isLoggedIn;
+        this.userData = response.user;
+      },
+      error: (err) => {
+        console.log(err);
+      },
     });
   }
 }

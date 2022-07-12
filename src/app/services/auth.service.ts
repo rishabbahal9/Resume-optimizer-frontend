@@ -1,20 +1,22 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { User } from 'src/models/user.model';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private isLoggedInSubject = new Subject<{
+  defaultState = { user: null, isLoggedIn: false };
+  private isLoggedInSubject = new BehaviorSubject<{
     user: User | null;
     isLoggedIn: Boolean;
-  }>();
+  }>(this.defaultState);
 
   backend_url: String = environment.backend_url;
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   getIsLoggedIn(): Observable<any> {
     return this.isLoggedInSubject.asObservable();
@@ -35,7 +37,8 @@ export class AuthService {
         .post(this.backend_url + '/auth/logout', { refresh: refresh })
         .subscribe({
           next: (data) => {
-            console.log(data);
+            this.isLoggedInSubject.next({ user: null, isLoggedIn: false });
+            this.router.navigate(['/login']);
           },
           error: (err) => {
             console.log(err);
@@ -81,7 +84,6 @@ export class AuthService {
   }
 
   autoLogin() {
-    console.log('autologin');
     var access = localStorage.getItem('access');
     if (access) {
       this.getUser().subscribe({
@@ -95,9 +97,8 @@ export class AuthService {
             userObj.profile_picture,
             access ? access : ''
           );
-          console.log('loggedInUser');
-          console.log(loggedInUser);
-          this.updateAuthenticationState(loggedInUser, true);
+
+          this.isLoggedInSubject.next({ isLoggedIn: true, user: loggedInUser });
         },
         error: (err) => {
           console.log(err);
@@ -106,7 +107,7 @@ export class AuthService {
         },
       });
     } else {
-      this.updateAuthenticationState(null, false);
+      this.isLoggedInSubject.next({ user: null, isLoggedIn: false });
     }
   }
   getNewAccessToken() {
@@ -116,8 +117,6 @@ export class AuthService {
         .post(this.backend_url + '/auth/token/refresh/', { refresh: refresh })
         .subscribe({
           next: (data: any) => {
-            console.log('refresh data');
-            console.log(data);
             if (data.access) {
               // update access token everywhere
               localStorage.setItem('access', data.access);
@@ -133,15 +132,17 @@ export class AuthService {
                     userObj.profile_picture,
                     data.access
                   );
-                  console.log('loggedInUser');
-                  console.log(loggedInUser);
+
                   this.updateAuthenticationState(loggedInUser, true);
                 },
                 error: (err) => {
                   console.log(err);
+
                   // Don't do anything here otherwise will go in loop
                 },
               });
+            } else {
+              this.isLoggedInSubject.next({ user: null, isLoggedIn: false });
             }
           },
           error: (err) => {
