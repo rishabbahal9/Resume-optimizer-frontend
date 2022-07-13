@@ -1,12 +1,10 @@
 <div id="sidenav">
   <ul>
-    <li routerLinkActive="active">
+    <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
       <a routerLink="/">Home</a>
     </li>
-    <li>
-        <a routerLink="/profile">Profile</a>
+    <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+      <a routerLink="/profile">Profile</a>
     </li>
-    <li>Contact</li>
-    <li>About</li>
   </ul>
 </div>

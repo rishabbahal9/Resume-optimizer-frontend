@@ -8,11 +8,10 @@ ul {
     padding: 0px;
 }
 
-a {
-    color: black
-}
 
-li {
+
+a {
+    color: black;
     text-decoration: none;
     display: block;
     /* border: 1px solid grey; */
@@ -20,13 +19,9 @@ li {
 
 }
 
-li:hover {
+a:hover {
     cursor: pointer;
     background-color: grey;
-    color: white;
-}
-
-li:hover a {
     color: white;
 }
 
@@ -38,13 +33,16 @@ li:hover a {
 .active a {
     color: white;
 }
+
 ul {
     display: flex;
 }
+
 @media screen and (min-width: 961px) {
     #sidenav {
         height: 95vh;
     }
+
     ul {
         display: block;
     }
