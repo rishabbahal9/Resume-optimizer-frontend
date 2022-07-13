@@ -1,0 +1,9 @@
+#profile-picture {
+    width:250px;
+    max-width: 100%;
+    border-radius: 2%;
+    text-align: center;
+    display: block;
+    margin: 20px auto;
+    border: 5px solid black;
+}

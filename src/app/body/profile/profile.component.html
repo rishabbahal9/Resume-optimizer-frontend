@@ -1,1 +1,25 @@
-<p>profile works!</p>
+<div class="row" style="margin: 0px">
+  <div
+    class="col-sm-8 col-md-4 col-lg-4"
+    style="border: 1px solid green; margin: 0px auto"
+  >
+    <img
+      id="profile-picture"
+      src="{{ userData.profilePicture }}"
+      alt="profile picture"
+    />
+  </div>
+
+  <div
+    class="col-sm-8 col-md-8 col-lg-8"
+    style="text-align: center; border: 1px solid green; margin: 0px auto; padding: 15px;"
+  >
+    <h2 i18n>User profile</h2>
+    <p style="font-size: 30px">
+      {{ userData.firstName }} {{ userData.lastName }}<br /><span
+        style="font-size: 15px"
+        >({{ userData.email }})</span
+      >
+    </p>
+  </div>
+</div>
