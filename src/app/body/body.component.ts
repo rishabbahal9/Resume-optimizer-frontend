@@ -25,7 +25,7 @@ export class BodyComponent implements OnInit {
   ngOnInit(): void {
     this.authService.getIsLoggedIn().subscribe({
       next: (data) => {
-        if (data && data.isLoggedIn) this.isLoggedIn = data.isLoggedIn;
+        this.isLoggedIn = data.isLoggedIn;
       },
     });
   }

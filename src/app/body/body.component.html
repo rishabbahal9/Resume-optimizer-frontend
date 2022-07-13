@@ -10,9 +10,13 @@
 <!-- <div style="text-align: center;">
   <img style="width: 150px" src="./../../assets/images/logo.png" alt="logo" />
 </div> -->
-<div [ngClass]="{'row':isLoggedIn}"  style="margin: 0px; padding: 0px;">
-  <app-side-nav class="col-lg-2 col-md-12" *ngIf="isLoggedIn" style="margin: 0px; padding: 0px;"></app-side-nav>
-  <div [ngClass]="{'col-lg-10 col-md-12':isLoggedIn}">
+<div [ngClass]="{ row: isLoggedIn }" style="margin: 0px; padding: 0px">
+  <app-side-nav
+    class="col-lg-2 col-md-12"
+    style="margin: 0px; padding: 0px"
+    *ngIf="isLoggedIn"
+  ></app-side-nav>
+  <div [ngClass]="{ 'col-lg-10 col-md-12': isLoggedIn }">
     <router-outlet></router-outlet>
   </div>
 </div>
