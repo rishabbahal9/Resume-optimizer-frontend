@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../services/auth.service';
 export interface Tile {
   color: string;
   cols: number;
@@ -18,7 +19,14 @@ export class BodyComponent implements OnInit {
     { text: 'Three', cols: 1, rows: 1, color: 'lightpink' },
     { text: 'Four', cols: 2, rows: 1, color: '#DDBDF1' },
   ];
-  constructor() {}
+  isLoggedIn: Boolean = false;
+  constructor(private authService: AuthService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.authService.getIsLoggedIn().subscribe({
+      next: (data) => {
+        if (data && data.isLoggedIn) this.isLoggedIn = data.isLoggedIn;
+      },
+    });
+  }
 }

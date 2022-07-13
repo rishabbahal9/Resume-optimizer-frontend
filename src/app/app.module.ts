@@ -20,6 +20,7 @@ import { ForgotPasswordFormComponent } from './body/forgot-password/forgot-passw
 import { AuthInterceptorService } from './services/auth-interceptor.service';
 import { HomeComponent } from './body/home/home.component';
 import { ProfileComponent } from './body/profile/profile.component';
+import { SideNavComponent } from './side-nav/side-nav.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { ProfileComponent } from './body/profile/profile.component';
     ForgotPasswordFormComponent,
     HomeComponent,
     ProfileComponent,
+    SideNavComponent,
   ],
   imports: [
     BrowserModule,

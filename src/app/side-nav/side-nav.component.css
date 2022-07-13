@@ -1,0 +1,29 @@
+#sidenav {
+    border: 0.1px solid green;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+li {
+    text-decoration: none;
+    display: block;
+    border: 1px solid grey;
+    padding: 15px;
+    text-align: center;
+}
+
+li:hover {
+    cursor: pointer;
+    background-color: grey;
+    color: white;
+}
+
+@media screen and (min-width: 961px) {
+    #sidenav {
+        height: 95vh;
+    }
+}
