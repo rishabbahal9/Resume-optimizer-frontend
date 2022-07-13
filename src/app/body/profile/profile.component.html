@@ -1,8 +1,5 @@
 <div class="row">
-  <div
-    class="col-sm-8 col-md-4 col-lg-4"
-    style="border: 1px solid green; margin: 0px auto"
-  >
+  <div class="col-sm-8 col-md-4 col-lg-4" style="margin: 0px auto">
     <img
       id="profile-picture"
       src="{{ userData.profilePicture }}"
@@ -12,14 +9,32 @@
 
   <div
     class="col-sm-8 col-md-8 col-lg-8"
-    style="text-align: center; border: 1px solid green; margin: 0px auto; padding: 15px;"
+    style="text-align: center; margin: 0px auto; padding: 15px"
   >
     <h2 i18n>User profile</h2>
-    <p style="font-size: 30px">
-      {{ userData.firstName }} {{ userData.lastName }}<br /><span
-        style="font-size: 15px"
-        >({{ userData.email }})</span
-      >
-    </p>
+    <table class="table table-borderless">
+      <tbody>
+        <tr>
+          <th i18n>Full name:</th>
+          <td>{{ userData.firstName }} {{ userData.lastName }}</td>
+        </tr>
+        <tr>
+          <th i18n>Email:</th>
+          <td>{{ userData.email }}</td>
+        </tr>
+        <tr>
+          <th i18n>Gender:</th>
+          <td>
+            {{ userData.gender }}
+          </td>
+        </tr>
+        <tr>
+          <th i18n>Date of birth:</th>
+          <td>
+            {{ userData.dateOfBirth }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>
