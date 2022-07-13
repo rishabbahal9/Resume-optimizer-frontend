@@ -38,9 +38,14 @@ li:hover a {
 .active a {
     color: white;
 }
-
+ul {
+    display: flex;
+}
 @media screen and (min-width: 961px) {
     #sidenav {
         height: 95vh;
+    }
+    ul {
+        display: block;
     }
 }
