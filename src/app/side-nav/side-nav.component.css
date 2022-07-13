@@ -8,17 +8,34 @@ ul {
     padding: 0px;
 }
 
+a {
+    color: black
+}
+
 li {
     text-decoration: none;
     display: block;
     /* border: 1px solid grey; */
     padding: 15px;
-    
+
 }
 
 li:hover {
     cursor: pointer;
     background-color: grey;
+    color: white;
+}
+
+li:hover a {
+    color: white;
+}
+
+.active {
+    background-color: #2f8fb3;
+    color: white;
+}
+
+.active a {
     color: white;
 }
 
