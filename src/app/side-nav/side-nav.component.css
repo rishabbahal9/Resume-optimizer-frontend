@@ -11,9 +11,9 @@ ul {
 li {
     text-decoration: none;
     display: block;
-    border: 1px solid grey;
+    /* border: 1px solid grey; */
     padding: 15px;
-    text-align: center;
+    
 }
 
 li:hover {
