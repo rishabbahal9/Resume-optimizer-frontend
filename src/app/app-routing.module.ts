@@ -7,13 +7,14 @@ import { PageNotFoundComponent } from './body/page-not-found/page-not-found.comp
 import { ProfileComponent } from './body/profile/profile.component';
 import { SignupComponent } from './body/signup/signup.component';
 import { AuthGuard } from './guards/auth.guard';
+import { ReverseAuthGuard } from './guards/reverse-auth.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate:[AuthGuard], pathMatch: 'full' },
-  { path: 'login', component: LoginComponent },
-  { path: 'signup', component: SignupComponent },
+  { path: 'login', component: LoginComponent, canActivate:[ReverseAuthGuard] },
+  { path: 'signup', component: SignupComponent, canActivate:[ReverseAuthGuard] },
+  { path: 'forgot-password', component: ForgotPasswordComponent, canActivate:[ReverseAuthGuard] },
   { path: 'profile', component: ProfileComponent, canActivate:[AuthGuard] },
-  { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'page-not-found', component: PageNotFoundComponent },
   { path: '**', redirectTo: '/page-not-found' },
 ];
