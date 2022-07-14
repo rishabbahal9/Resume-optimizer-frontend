@@ -23,7 +23,7 @@ export class AuthService {
   }
 
   login(email: string, password: string) {
-    return this.http.post(this.backend_url + '/auth/token/', {
+    return this.http.post(this.backend_url + '/auth/token', {
       email: email,
       password: password,
     });
@@ -68,6 +68,7 @@ export class AuthService {
       date_of_birth: dateOfBirth,
       email: email,
       password: password,
+      profile_picture: gender=='female'?"assets/images/woman.png":gender=='male'?"assets/images/man.png":"assets/images/default_display_picture.png"
     });
   }
 
@@ -115,7 +116,7 @@ export class AuthService {
     const refresh = localStorage.getItem('refresh');
     if (refresh) {
       this.http
-        .post(this.backend_url + '/auth/token/refresh/', { refresh: refresh })
+        .post(this.backend_url + '/auth/token/refresh', { refresh: refresh })
         .subscribe({
           next: (data: any) => {
             if (data.access) {
