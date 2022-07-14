@@ -23,11 +23,7 @@ export class ProfileComponent implements OnInit {
           data.email,
           data.gender,
           data.date_of_birth,
-          data.profile_picture != ''
-            ? data.profile_picture
-            : data.gender == 'female'
-            ? 'assets/images/woman.png'
-            : 'assets/images/man.png',
+          data.profile_picture,
           data.verified,
           ''
         );

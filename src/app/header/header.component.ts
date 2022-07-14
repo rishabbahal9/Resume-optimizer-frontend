@@ -24,8 +24,11 @@ export class HeaderComponent implements OnInit {
         } else {
           if (this.userData && this.userData.gender == 'female') {
             this.profilePicture = 'assets/images/woman.png';
-          } else {
+          } else if (this.userData && this.userData.gender == 'male'){
             this.profilePicture = 'assets/images/man.png';
+          }
+          else {
+            this.profilePicture = 'assets/images/default_display_picture.png';
           }
         }
       },
