@@ -8,7 +8,7 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
-  userData: User = new User('', '', '', '', '', '', '');
+  userData: User = new User('', '', '', '', '', '', false, '');
   profilePicture: String = '';
   isLoggedIn: Boolean = false;
 

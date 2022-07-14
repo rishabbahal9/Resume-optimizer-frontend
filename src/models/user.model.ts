@@ -6,6 +6,7 @@ export class User {
     public gender: string,
     public dateOfBirth: string,
     public profilePicture: string,
+    public verified: boolean,
     private _token: string
   ) {}
 
@@ -16,11 +17,12 @@ export class User {
       email: this.email,
       gender: this.gender,
       dateOfBirth: this.dateOfBirth,
-      profilePicture: this.profilePicture
+      profilePicture: this.profilePicture,
+      verified: this.verified,
     };
   }
 
-  get token(){
+  get token() {
     return this._token;
   }
 }

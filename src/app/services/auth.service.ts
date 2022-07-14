@@ -95,6 +95,7 @@ export class AuthService {
             userObj.gender,
             userObj.date_of_birth,
             userObj.profile_picture,
+            userObj.verified,
             access ? access : ''
           );
 
@@ -130,6 +131,7 @@ export class AuthService {
                     userObj.gender,
                     userObj.date_of_birth,
                     userObj.profile_picture,
+                    userObj.verified,
                     data.access
                   );
 

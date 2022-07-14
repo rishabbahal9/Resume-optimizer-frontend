@@ -50,6 +50,7 @@ export class LoginFormComponent implements OnInit {
                 userObj.gender,
                 userObj.date_of_birth,
                 userObj.profile_picture,
+                userObj.verified,
                 data.access
               );
               this.authService.updateAuthenticationState(loggedInUser, true);

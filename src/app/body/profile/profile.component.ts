@@ -8,12 +8,14 @@ import { User } from 'src/models/user.model';
   styleUrls: ['./profile.component.css'],
 })
 export class ProfileComponent implements OnInit {
-  userData: User = new User('', '', '', '', '', '', '');
+  userData: User = new User('', '', '', '', '', '', false, '');
   constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
     this.authService.getUser().subscribe({
       next: (data: any) => {
+        console.log(data.gender)
+        console.log(data.profile_picture)
         this.userData = data;
         const userObj = new User(
           data.first_name,
@@ -26,6 +28,7 @@ export class ProfileComponent implements OnInit {
             : data.gender == 'female'
             ? 'assets/images/woman.png'
             : 'assets/images/man.png',
+          data.verified,
           ''
         );
         this.userData = userObj;
