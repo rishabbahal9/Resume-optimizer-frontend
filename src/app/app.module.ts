@@ -21,6 +21,7 @@ import { AuthInterceptorService } from './services/auth-interceptor.service';
 import { HomeComponent } from './body/home/home.component';
 import { ProfileComponent } from './body/profile/profile.component';
 import { SideNavComponent } from './side-nav/side-nav.component';
+import { VerifyUserComponent } from './body/verify-user/verify-user.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { SideNavComponent } from './side-nav/side-nav.component';
     HomeComponent,
     ProfileComponent,
     SideNavComponent,
+    VerifyUserComponent,
   ],
   imports: [
     BrowserModule,

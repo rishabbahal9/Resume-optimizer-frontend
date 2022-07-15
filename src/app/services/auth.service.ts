@@ -68,7 +68,12 @@ export class AuthService {
       date_of_birth: dateOfBirth,
       email: email,
       password: password,
-      profile_picture: gender=='female'?"assets/images/woman.png":gender=='male'?"assets/images/man.png":"assets/images/default_display_picture.png"
+      profile_picture:
+        gender == 'female'
+          ? 'assets/images/woman.png'
+          : gender == 'male'
+          ? 'assets/images/man.png'
+          : 'assets/images/default_display_picture.png',
     });
   }
 
@@ -153,5 +158,12 @@ export class AuthService {
           },
         });
     }
+  }
+
+  verifyUser(verificationToken: string) {
+    return this.http.patch(this.backend_url + '/auth/verify-user', {
+      verification_token: verificationToken,
+      verified: true,
+    });
   }
 }
