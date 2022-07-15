@@ -1,16 +1,20 @@
-<!-- <mat-grid-list cols="4" rowHeight="100px">
-    <mat-grid-tile
-        *ngFor="let tile of tiles"
-        [colspan]="tile.cols"
-        [rowspan]="tile.rows"
-        [style.background]="tile.color">
-      {{tile.text}}
-    </mat-grid-tile>
-  </mat-grid-list> -->
-<!-- <div style="text-align: center;">
-  <img style="width: 150px" src="./../../assets/images/logo.png" alt="logo" />
-</div> -->
-<div [ngClass]="{ row: isLoggedIn }" style="margin: 0px; padding: 0px">
+<div *ngIf="user && !user.verified && isLoggedIn" class="row">
+  <div class="col-lg-6 col-md-6 col-sm-10" style="display: block; margin: auto">
+    <div
+      class="alert alert-warning"
+      role="alert"
+      style="display: block; margin: 10px auto; text-align: center"
+      i18n
+    >
+      You are logged in but, Email ({{ user.email }}) is not verified. We have sent you the verification link when you registered on your email. Kindly verify your account to get access to the app.
+    </div>
+  </div>
+</div>
+<div
+  *ngIf="!isLoggedIn || (isLoggedIn && user && user.verified)"
+  [ngClass]="{ row: isLoggedIn }"
+  style="margin: 0px; padding: 0px"
+>
   <app-side-nav
     class="col-lg-2 col-md-12"
     style="margin: 0px; padding: 0px"
