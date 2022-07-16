@@ -10,14 +10,49 @@ import { VerifyUserComponent } from './body/verify-user/verify-user.component';
 import { AuthGuard } from './guards/auth.guard';
 import { ReverseAuthGuard } from './guards/reverse-auth.guard';
 
+const titlePrefix = $localize`TXn: `;
 const routes: Routes = [
-  { path: '', component: HomeComponent, canActivate:[AuthGuard], pathMatch: 'full' },
-  { path: 'verify-user/:verification-token', component: VerifyUserComponent},
-  { path: 'login', component: LoginComponent, canActivate:[ReverseAuthGuard] },
-  { path: 'signup', component: SignupComponent, canActivate:[ReverseAuthGuard] },
-  { path: 'forgot-password', component: ForgotPasswordComponent, canActivate:[ReverseAuthGuard] },
-  { path: 'profile', component: ProfileComponent, canActivate:[AuthGuard] },
-  { path: 'page-not-found', component: PageNotFoundComponent },
+  {
+    path: '',
+    component: HomeComponent,
+    canActivate: [AuthGuard],
+    pathMatch: 'full',
+    title: $localize`${titlePrefix}Home`,
+  },
+  {
+    path: 'verify-user/:verification-token',
+    component: VerifyUserComponent,
+    title: $localize`${titlePrefix}Verify user`,
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
+    canActivate: [ReverseAuthGuard],
+    title: $localize`${titlePrefix}Login`,
+  },
+  {
+    path: 'signup',
+    component: SignupComponent,
+    canActivate: [ReverseAuthGuard],
+    title: $localize`${titlePrefix}Sign up`,
+  },
+  {
+    path: 'forgot-password',
+    component: ForgotPasswordComponent,
+    canActivate: [ReverseAuthGuard],
+    title: $localize`${titlePrefix}Forgot password`,
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent,
+    canActivate: [AuthGuard],
+    title: $localize`${titlePrefix}Profile`,
+  },
+  {
+    path: 'page-not-found',
+    component: PageNotFoundComponent,
+    title: $localize`${titlePrefix}Error 404: Page not found`,
+  },
   { path: '**', redirectTo: '/page-not-found' },
 ];
 
