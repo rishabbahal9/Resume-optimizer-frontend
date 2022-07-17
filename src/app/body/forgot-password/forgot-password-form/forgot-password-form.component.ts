@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -8,14 +9,41 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./forgot-password-form.component.css'],
 })
 export class ForgotPasswordFormComponent implements OnInit {
-  constructor(private authService: AuthService) {}
+  isSuccess: boolean = false;
+  timeCount: number = 8;
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {}
   forgotpasswordForm = new FormGroup({
-    email: new FormControl(''),
+    email: new FormControl('', [Validators.email, Validators.required]),
   });
 
   onSubmit() {
-    console.log(this.authService.resetPassword());
+    const email = this.forgotpasswordForm.get('email')?.value;
+    if (this.forgotpasswordForm.valid) {
+      this.authService.forgotPassword(email ? email : '').subscribe({
+        /** 
+         * Weather success failiure, we will show success message 
+         * to avoid revealing information to hackers
+         */
+        next: (data: any) => {
+          this.isSuccess = data.success;
+          if (data.success) this.startRedirect();
+        },
+        error: (err) => {
+          console.log(err);
+          this.isSuccess = true;
+          this.startRedirect();
+        },
+      });
+    }
+  }
+  startRedirect() {
+    setInterval(() => {
+      this.timeCount--;
+      if (this.timeCount == 0) {
+        this.router.navigate(['/']);
+      }
+    }, 1000);
   }
 }

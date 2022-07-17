@@ -81,6 +81,12 @@ export class AuthService {
     return { passwordReset: true };
   }
 
+  forgotPassword(email: string) {
+    return this.http.post(this.backend_url + '/auth/forgot-password', {
+      email: email,
+    });
+  }
+
   getUser() {
     return this.http.get(this.backend_url + '/auth/user');
   }
