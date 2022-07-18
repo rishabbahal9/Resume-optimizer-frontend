@@ -9,8 +9,10 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./forgot-password-form.component.css'],
 })
 export class ForgotPasswordFormComponent implements OnInit {
+  showLoader: boolean = false;
   isSuccess: boolean = false;
   timeCount: number = 8;
+  
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {}
@@ -21,9 +23,10 @@ export class ForgotPasswordFormComponent implements OnInit {
   onSubmit() {
     const email = this.forgotpasswordForm.get('email')?.value;
     if (this.forgotpasswordForm.valid) {
+      this.showLoader=true;
       this.authService.forgotPasswordSubmit(email ? email : '').subscribe({
-        /** 
-         * Weather success failiure, we will show success message 
+        /**
+         * Weather success failiure, we will show success message
          * to avoid revealing information to hackers
          */
         next: (data: any) => {
@@ -35,6 +38,9 @@ export class ForgotPasswordFormComponent implements OnInit {
           this.isSuccess = true;
           this.startRedirect();
         },
+        complete:()=>{
+          this.showLoader=false;
+        }
       });
     }
   }
