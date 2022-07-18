@@ -44,7 +44,7 @@ const routes: Routes = [
     title: $localize`${titlePrefix}Forgot password`,
   },
   {
-    path: 'reset-forgot-password/:reset-password-token',
+    path: 'reset-forgot-password/:reset-password-token/:uid',
     component: ResetForgotPasswordComponent,
     canActivate: [ReverseAuthGuard],
     title: $localize`${titlePrefix}Reset forgot password`,

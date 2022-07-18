@@ -77,11 +77,29 @@ export class AuthService {
     });
   }
 
-  resetPassword() {
-    return { passwordReset: true };
+  resetForgotPassword(
+    token: string,
+    uid: number,
+    newPassword: string | undefined|null
+  ) {
+    return this.http.post(this.backend_url + '/auth/reset-forgot-password', {
+      token,
+      uid,
+      newPassword,
+    });
   }
 
-  forgotPassword(email: string) {
+  verifyResetForgotPasswordToken(token: string, uid: number) {
+    return this.http.post(
+      this.backend_url + '/auth/verify-forgot-password-token',
+      {
+        token: token,
+        uid: uid,
+      }
+    );
+  }
+
+  forgotPasswordSubmit(email: string) {
     return this.http.post(this.backend_url + '/auth/forgot-password', {
       email: email,
     });

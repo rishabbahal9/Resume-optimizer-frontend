@@ -17,6 +17,7 @@ export class ProfileComponent implements OnInit {
         console.log(data.gender)
         console.log(data.profile_picture)
         this.userData = data;
+        console.log(data);
         const userObj = new User(
           data.first_name,
           data.last_name,

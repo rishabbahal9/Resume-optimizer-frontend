@@ -21,7 +21,7 @@ export class ForgotPasswordFormComponent implements OnInit {
   onSubmit() {
     const email = this.forgotpasswordForm.get('email')?.value;
     if (this.forgotpasswordForm.valid) {
-      this.authService.forgotPassword(email ? email : '').subscribe({
+      this.authService.forgotPasswordSubmit(email ? email : '').subscribe({
         /** 
          * Weather success failiure, we will show success message 
          * to avoid revealing information to hackers
