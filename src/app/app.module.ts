@@ -22,6 +22,8 @@ import { HomeComponent } from './body/home/home.component';
 import { ProfileComponent } from './body/profile/profile.component';
 import { SideNavComponent } from './side-nav/side-nav.component';
 import { VerifyUserComponent } from './body/verify-user/verify-user.component';
+import { ResetForgotPasswordComponent } from './body/reset-forgot-password/reset-forgot-password.component';
+import { ResetForgotPasswordFormComponent } from './body/reset-forgot-password/reset-forgot-password-form/reset-forgot-password-form.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +42,8 @@ import { VerifyUserComponent } from './body/verify-user/verify-user.component';
     ProfileComponent,
     SideNavComponent,
     VerifyUserComponent,
+    ResetForgotPasswordComponent,
+    ResetForgotPasswordFormComponent,
   ],
   imports: [
     BrowserModule,

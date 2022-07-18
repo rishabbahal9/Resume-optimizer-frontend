@@ -5,6 +5,7 @@ import { HomeComponent } from './body/home/home.component';
 import { LoginComponent } from './body/login/login.component';
 import { PageNotFoundComponent } from './body/page-not-found/page-not-found.component';
 import { ProfileComponent } from './body/profile/profile.component';
+import { ResetForgotPasswordComponent } from './body/reset-forgot-password/reset-forgot-password.component';
 import { SignupComponent } from './body/signup/signup.component';
 import { VerifyUserComponent } from './body/verify-user/verify-user.component';
 import { AuthGuard } from './guards/auth.guard';
@@ -41,6 +42,12 @@ const routes: Routes = [
     component: ForgotPasswordComponent,
     canActivate: [ReverseAuthGuard],
     title: $localize`${titlePrefix}Forgot password`,
+  },
+  {
+    path: 'reset-forgot-password/:reset-password-token',
+    component: ResetForgotPasswordComponent,
+    canActivate: [ReverseAuthGuard],
+    title: $localize`${titlePrefix}Reset forgot password`,
   },
   {
     path: 'profile',
