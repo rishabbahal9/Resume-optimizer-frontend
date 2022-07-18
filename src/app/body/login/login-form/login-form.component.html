@@ -15,7 +15,7 @@
     class="input-group"
     style="display: block; margin: 10px auto; text-align: center"
   >
-    <button type="submit" class="btn btn-success" i18n>Submit</button>
+    <button type="submit" class="btn btn-success" [disabled]="!this.loginForm.valid" i18n>Submit</button>
   </div>
   
   <div
