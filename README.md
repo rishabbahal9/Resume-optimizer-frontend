@@ -1,7 +1,7 @@
-# Angular based boiler plate frontend
+# RESUME OPTIMIZER FRONTEND
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.0.3.
-This project works as frontend for [DJANGO-JWT-AUTHENTICATION](https://github.com/rishabbahal9/DJANGO-JWT-AUTHENTICATION.git) project.
+This project works as frontend for [RESUME OPTIMIZER BACKEND](https://github.com/rishabbahal9/Resume-optimizer-backend.git) project.
 
 ## Development server
 
