@@ -11,7 +11,7 @@ import { VerifyUserComponent } from './body/verify-user/verify-user.component';
 import { AuthGuard } from './guards/auth.guard';
 import { ReverseAuthGuard } from './guards/reverse-auth.guard';
 
-const titlePrefix = $localize`TXn: `;
+const titlePrefix = $localize`AI resume optimizer: `;
 const routes: Routes = [
   {
     path: '',
