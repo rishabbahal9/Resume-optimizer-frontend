@@ -1,28 +1,17 @@
-import React from 'react';
-import ReactDiffViewer from 'react-diff-viewer-continued';
-const oldCode = `
-const a = 10
-const b = 10
-const c = () => console.log('foo')
+import React from "react";
+import ReactDiffViewer from "react-diff-viewer-continued";
 
-if(a > 10) {
-  console.log('bar')
-}
-
-console.log('done')
-`;
-const newCode = `
-const a = 10
-const boo = 10
-
-if(a === 10) {
-  console.log('bar')
-}
-`;
 function DiffViewer(props) {
-    return (
-        <><h3>DiffViewer</h3><ReactDiffViewer oldValue={oldCode} newValue={newCode} splitView={props.splitView} /></>
-    );
+  return (
+    <>
+      <p>DiffViewer</p>
+      <ReactDiffViewer
+        oldValue={props.currentResume}
+        newValue={props.optimizedResume}
+        splitView={props.splitView}
+      />
+    </>
+  );
 }
 
 export default DiffViewer;
