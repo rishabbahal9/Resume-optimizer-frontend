@@ -34,9 +34,10 @@ function Home() {
           console.log(data);
           setCurrentResume(data.currentResume);
           // Backend api call
-          setOptimizedResume(
-            resumeService.getOptimizedResume(data).optimizedResume
-          );
+          const optimizedResumeValue =
+            resumeService.getOptimizedResume(data).optimizedResume;
+          setOptimizedResume(optimizedResumeValue);
+          setValue("optimizedResume", optimizedResumeValue);
           setResponseLoaded(true);
         })}
       >
@@ -117,9 +118,10 @@ function Home() {
           )}
           {responseLoaded && (
             <>
-              {/* <Form.Group
+              <Form.Group
                 className="mb-3"
                 controlId="exampleForm.ControlTextarea1"
+                style={{ width: "50%", display: "block", margin: "auto" }}
               >
                 <Form.Label>Custom instructions</Form.Label>
                 <Form.Control
@@ -127,56 +129,56 @@ function Home() {
                   rows={3}
                   {...register("customInstructions")}
                 />
-              </Form.Group> */}
+              </Form.Group>
               <Button variant="primary" type="submit">
                 Re-optimize resume
               </Button>
             </>
           )}
         </div>
-      </Form>
 
-      {responseLoaded && (
-        <Container fluid>
-          <Row>
-            <Col
-              xs={10}
-              md={5}
-              style={{
-                display: "block",
-                margin: "auto",
-              }}
-            >
-              <Form.Group
-                className="mb-3"
-                controlId="exampleForm.ControlTextarea1"
+        {responseLoaded && (
+          <Container fluid>
+            <Row>
+              <Col
+                xs={10}
+                md={5}
+                style={{
+                  display: "block",
+                  margin: "auto",
+                }}
               >
-                <Form.Label>Optimized resume</Form.Label>
-                <Form.Control
-                  as="textarea"
-                  rows={15}
-                  value={optimizedResume}
-                  {...register("optimizedResume")}
+                <Form.Group
+                  className="mb-3"
+                  controlId="exampleForm.ControlTextarea1"
+                >
+                  <Form.Label>Optimized resume</Form.Label>
+                  <Form.Control
+                    as="textarea"
+                    rows={15}
+                    {...register("optimizedResume")}
+                    onChange={(e) => setOptimizedResume(e.target.value)}
+                  />
+                </Form.Group>
+              </Col>
+              <Col
+                xs={10}
+                md={5}
+                style={{
+                  display: "block",
+                  margin: "auto",
+                }}
+              >
+                <DiffViewerComponent
+                  currentResume={currentResume}
+                  optimizedResume={optimizedResume}
+                  splitView={false}
                 />
-              </Form.Group>
-            </Col>
-            <Col
-              xs={10}
-              md={5}
-              style={{
-                display: "block",
-                margin: "auto",
-              }}
-            >
-              <DiffViewerComponent
-                currentResume={currentResume}
-                optimizedResume={optimizedResume}
-                splitView={false}
-              />
-            </Col>
-          </Row>
-        </Container>
-      )}
+              </Col>
+            </Row>
+          </Container>
+        )}
+      </Form>
     </>
   );
 }

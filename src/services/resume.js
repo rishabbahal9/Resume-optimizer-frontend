@@ -1,4 +1,6 @@
 let defaultResume = undefined;
+const optimizedResume = `Some text...`;
+
 exports.getDefaultResume = async () => {
   return {
     defaultResume: defaultResume,
@@ -12,6 +14,6 @@ exports.saveDefaultResume = async (data) => {
 
 exports.getOptimizedResume = (data) => {
   return {
-    optimizedResume: `Some text...`,
+    optimizedResume: optimizedResume,
   };
 };
