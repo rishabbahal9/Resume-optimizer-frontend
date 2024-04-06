@@ -19,9 +19,9 @@ if(a === 10) {
   console.log('bar')
 }
 `;
-function DiffViewer() {
+function DiffViewer(props) {
     return (
-        <><h3>DiffViewer</h3><ReactDiffViewer oldValue={oldCode} newValue={newCode} splitView={true} /></>
+        <><h3>DiffViewer</h3><ReactDiffViewer oldValue={oldCode} newValue={newCode} splitView={props.splitView} /></>
     );
 }
 

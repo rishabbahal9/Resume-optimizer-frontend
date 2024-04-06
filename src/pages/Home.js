@@ -4,16 +4,22 @@ import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import { useForm } from "react-hook-form";
 import DiffViewerComponent from "../components/DiffViewerComponent";
 
 function Home() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const [defaultResume, setDefaultResume] = useState();
   const [responseLoaded, setResponseLoaded] = useState(false);
 
   return (
     <>
       <h1>AI Resume Optimizer</h1>
-      <Form>
+      <Form onSubmit={handleSubmit((data) => console.log(data))}>
         <Container fluid>
           <Row>
             <Col
@@ -29,7 +35,11 @@ function Home() {
                 controlId="exampleForm.ControlTextarea1"
               >
                 <Form.Label>Job description</Form.Label>
-                <Form.Control as="textarea" rows={15} />
+                <Form.Control
+                  as="textarea"
+                  rows={15}
+                  {...register("jobDescription", { required: true })}
+                />
               </Form.Group>
             </Col>
             <Col
@@ -45,7 +55,11 @@ function Home() {
                 controlId="exampleForm.ControlTextarea1"
               >
                 <Form.Label>Current resume</Form.Label>
-                <Form.Control as="textarea" rows={15} />
+                <Form.Control
+                  as="textarea"
+                  rows={15}
+                  {...register("currentResume")}
+                />
               </Form.Group>
             </Col>
           </Row>
@@ -71,11 +85,13 @@ function Home() {
           </Row>
         </Container>
         <div style={{ margin: "20px auto" }}>
-          <Button variant="primary">Optimize Resume</Button>
+          <Button variant="primary" type="submit">
+            Optimize Resume
+          </Button>
         </div>
       </Form>
 
-      <DiffViewerComponent />
+      <DiffViewerComponent splitView={false} />
     </>
   );
 }
