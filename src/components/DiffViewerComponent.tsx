@@ -1,7 +1,11 @@
 import React from "react";
 import ReactDiffViewer from "react-diff-viewer-continued";
 
-function DiffViewer(props) {
+function DiffViewer(props: {
+  currentResume: string | undefined;
+  optimizedResume: string | undefined;
+  splitView: boolean;
+}) {
   return (
     <>
       <p>DiffViewer</p>

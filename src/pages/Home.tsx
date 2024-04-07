@@ -1,23 +1,28 @@
 import React, { useState, useEffect } from "react";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
+// import Button from "react-bootstrap/Button";
+// import Form from "react-bootstrap/Form";
+// import Container from "react-bootstrap/Container";
+// import Row from "react-bootstrap/Row";
+// import Col from "react-bootstrap/Col";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import Grid from "@mui/material/Grid";
+import Item from "@mui/material/Grid";
 import { useForm } from "react-hook-form";
-import DiffViewerComponent from "../components/DiffViewerComponent.tsx";
+import DiffViewerComponent from "../components/DiffViewerComponent";
 
-import resumeService from "../services/resume.ts";
+import * as resumeService from "../services/resume";
+import { Box } from "@mui/material";
 
 function Home() {
   const { register, handleSubmit, setValue, getValues } = useForm();
 
-  const [currentResume, setCurrentResume] = useState();
-  const [optimizedResume, setOptimizedResume] = useState();
-  const [responseLoaded, setResponseLoaded] = useState(false);
+  const [currentResume, setCurrentResume] = useState<string | undefined>();
+  const [optimizedResume, setOptimizedResume] = useState<string | undefined>();
+  const [responseLoaded, setResponseLoaded] = useState<boolean>(false);
 
   useEffect(() => {
-    resumeService.getDefaultResume().then((data) => {
+    resumeService.getDefaultResume().then((data: any) => {
       setValue("currentResume", data.defaultResume);
     });
   }, [setValue]);
@@ -29,8 +34,9 @@ function Home() {
   return (
     <>
       <h1>AI Resume Optimizer</h1>
-      <Form
-        onSubmit={handleSubmit((data) => {
+      <Box sx={{ m: 10 }} />
+      <form
+        onSubmit={handleSubmit((data: any) => {
           console.log(data);
           setCurrentResume(data.currentResume);
           // Backend api call
@@ -41,153 +47,107 @@ function Home() {
           setResponseLoaded(true);
         })}
       >
-        <Container fluid>
-          <Row>
-            <Col
-              xs={10}
-              md={5}
-              style={{
-                display: "block",
-                margin: "auto",
-              }}
-            >
-              <Form.Group
-                className="mb-3"
-                controlId="exampleForm.ControlTextarea1"
-              >
-                <Form.Label>Job description</Form.Label>
-                <Form.Control
-                  as="textarea"
-                  rows={15}
-                  {...register("jobDescription", { required: true })}
-                />
-              </Form.Group>
-            </Col>
-            <Col
-              xs={10}
-              md={5}
-              style={{
-                display: "block",
-                margin: "auto",
-              }}
-            >
-              <Form.Group
-                className="mb-3"
-                controlId="exampleForm.ControlTextarea1"
-              >
-                <Form.Label>Current resume</Form.Label>
-                <Form.Control
-                  as="textarea"
-                  rows={15}
-                  {...register("currentResume")}
-                />
-              </Form.Group>
-            </Col>
-          </Row>
-          <Row>
-            <Col
-              xs={10}
-              md={5}
-              style={{
-                display: "block",
-                margin: "auto",
-              }}
-            ></Col>
-            <Col
-              xs={10}
-              md={5}
-              style={{
-                display: "block",
-                margin: "auto",
-              }}
-            >
-              <Button
-                variant="outline-success"
-                onClick={handleSaveDefaultResume}
-              >
-                Save as default resume
-              </Button>
-            </Col>
-          </Row>
-        </Container>
+        <Grid container>
+          <Grid xs={0} md={1} item={true}></Grid>
+          <Grid xs={12} md={4} item={true}>
+            <Item>
+              <TextField
+                id="filled-multiline-static"
+                label="Job Description"
+                multiline
+                rows={14}
+                variant="filled"
+                fullWidth
+                {...register("jobDescription", { required: true })}
+              />
+            </Item>
+          </Grid>
+          <Grid xs={0} md={2} item={true}></Grid>
+          <Grid xs={12} md={4} item={true}>
+            <Item>
+              <TextField
+                id="filled-multiline-static"
+                label="Current resume"
+                multiline
+                rows={14}
+                variant="filled"
+                fullWidth
+                {...register("currentResume")}
+              />
+            </Item>
+          </Grid>
+          <Grid xs={0} md={1} item={true}></Grid>
+        </Grid>
+        <Box sx={{ m: 2 }} />
+        <Grid container>
+          <Grid xs={0} md={6} item={true}></Grid>
+          <Grid xs={12} md={6} item={true}>
+            <Button variant="outlined" onClick={handleSaveDefaultResume}>
+              Save as default resume
+            </Button>
+          </Grid>
+        </Grid>
+
         <div style={{ margin: "20px auto" }}>
           {!responseLoaded && (
-            <Button variant="primary" type="submit">
+            <Button variant="contained" color="success" type="submit">
               Optimize resume
             </Button>
           )}
           {responseLoaded && (
             <>
-              <Container>
-                <Row>
-                  <Col xs={1} md={3}></Col>
-                  <Col xs={10} md={6}>
-                    <Form.Group
-                      className="mb-3"
-                      controlId="exampleForm.ControlTextarea1"
-                      sm={10}
-                      md={5}
-                    >
-                      <Form.Label>Custom instructions for AI</Form.Label>
-                      <Form.Control
-                        as="textarea"
-                        rows={3}
-                        {...register("customInstructions")}
-                      />
-                    </Form.Group>
-                  </Col>
-                  <Col xs={1} md={3}></Col>
-                </Row>
-                <Button variant="primary" type="submit">
-                  Re-optimize resume
-                </Button>
-              </Container>
+              <Grid container>
+                <Grid xs={0} md={4} item={true}></Grid>
+                <Grid xs={12} md={4} item={true}>
+                  <TextField
+                    id="filled-multiline-static"
+                    label="Custom instructions for AI"
+                    multiline
+                    rows={3}
+                    variant="filled"
+                    fullWidth
+                    {...register("customInstructions")}
+                  />
+                  <Box sx={{ m: 2 }} />
+                  <Button variant="contained" type="submit">
+                    Re-optimize resume
+                  </Button>
+                </Grid>
+                <Grid xs={0} md={4} item={true}></Grid>
+              </Grid>
             </>
           )}
         </div>
 
         {responseLoaded && (
-          <Container fluid>
-            <Row>
-              <Col
-                xs={10}
-                md={10}
-                style={{
-                  display: "block",
-                  margin: "auto",
-                }}
-              >
-                <Form.Group
-                  className="mb-3"
-                  controlId="exampleForm.ControlTextarea1"
-                >
-                  <Form.Label>Optimized resume</Form.Label>
-                  <Form.Control
-                    as="textarea"
-                    rows={15}
-                    {...register("optimizedResume")}
-                    onChange={(e) => setOptimizedResume(e.target.value)}
-                  />
-                </Form.Group>
-              </Col>
-              <Col
-                xs={10}
-                md={10}
-                style={{
-                  display: "block",
-                  margin: "auto",
-                }}
-              >
+          <>
+            <Grid container>
+              <Grid xs={0} md={1} item={true}></Grid>
+              <Grid xs={12} md={10} item={true}>
+                <TextField
+                  id="filled-multiline-static"
+                  label="Optimized resume"
+                  multiline
+                  rows={14}
+                  variant="filled"
+                  fullWidth
+                  {...register("optimizedResume")}
+                  onChange={(e) => {
+                    setOptimizedResume(e.target.value);
+                  }}
+                />
+
                 <DiffViewerComponent
                   currentResume={currentResume}
                   optimizedResume={optimizedResume}
                   splitView={true}
                 />
-              </Col>
-            </Row>
-          </Container>
+              </Grid>
+              <Grid xs={0} md={1} item={true}></Grid>
+            </Grid>
+          </>
         )}
-      </Form>
+      </form>
     </>
   );
 }

@@ -1,18 +1,22 @@
-let defaultResume = undefined;
+let defaultResume: string | undefined = undefined;
 const optimizedResume = `Some text...`;
 
-exports.getDefaultResume = async () => {
+export const getDefaultResume = async () => {
   return {
     defaultResume: defaultResume,
   };
 };
 
-exports.saveDefaultResume = async (data) => {
+export const saveDefaultResume = async (data: { defaultResume: string }) => {
   defaultResume = data.defaultResume;
   return { success: true, defaultResume: defaultResume };
 };
 
-exports.getOptimizedResume = (data) => {
+export const getOptimizedResume = (_data: {
+  currentResume: string;
+  jobDescription: string;
+  customInstructions: string;
+}) => {
   return {
     optimizedResume: optimizedResume,
   };
