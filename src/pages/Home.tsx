@@ -5,9 +5,9 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { useForm } from "react-hook-form";
-import DiffViewerComponent from "../components/DiffViewerComponent";
+import DiffViewerComponent from "../components/DiffViewerComponent.tsx";
 
-import resumeService from "../services/resume";
+import resumeService from "../services/resume.ts";
 
 function Home() {
   const { register, handleSubmit, setValue, getValues } = useForm();
