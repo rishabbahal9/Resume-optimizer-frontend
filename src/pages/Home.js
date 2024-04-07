@@ -118,21 +118,30 @@ function Home() {
           )}
           {responseLoaded && (
             <>
-              <Form.Group
-                className="mb-3"
-                controlId="exampleForm.ControlTextarea1"
-                style={{ width: "50%", display: "block", margin: "auto" }}
-              >
-                <Form.Label>Custom instructions</Form.Label>
-                <Form.Control
-                  as="textarea"
-                  rows={3}
-                  {...register("customInstructions")}
-                />
-              </Form.Group>
-              <Button variant="primary" type="submit">
-                Re-optimize resume
-              </Button>
+              <Container>
+                <Row>
+                  <Col xs={1} md={3}></Col>
+                  <Col xs={10} md={6}>
+                    <Form.Group
+                      className="mb-3"
+                      controlId="exampleForm.ControlTextarea1"
+                      sm={10}
+                      md={5}
+                    >
+                      <Form.Label>Custom instructions for AI</Form.Label>
+                      <Form.Control
+                        as="textarea"
+                        rows={3}
+                        {...register("customInstructions")}
+                      />
+                    </Form.Group>
+                  </Col>
+                  <Col xs={1} md={3}></Col>
+                </Row>
+                <Button variant="primary" type="submit">
+                  Re-optimize resume
+                </Button>
+              </Container>
             </>
           )}
         </div>
@@ -142,7 +151,7 @@ function Home() {
             <Row>
               <Col
                 xs={10}
-                md={5}
+                md={10}
                 style={{
                   display: "block",
                   margin: "auto",
@@ -163,7 +172,7 @@ function Home() {
               </Col>
               <Col
                 xs={10}
-                md={5}
+                md={10}
                 style={{
                   display: "block",
                   margin: "auto",
@@ -172,7 +181,7 @@ function Home() {
                 <DiffViewerComponent
                   currentResume={currentResume}
                   optimizedResume={optimizedResume}
-                  splitView={false}
+                  splitView={true}
                 />
               </Col>
             </Row>
