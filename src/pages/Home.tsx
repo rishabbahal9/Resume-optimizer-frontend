@@ -1,18 +1,14 @@
-import React, { useState, useEffect } from "react";
-// import Button from "react-bootstrap/Button";
-// import Form from "react-bootstrap/Form";
-// import Container from "react-bootstrap/Container";
-// import Row from "react-bootstrap/Row";
-// import Col from "react-bootstrap/Col";
+import { useState, useEffect } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import Item from "@mui/material/Grid";
+import Box from "@mui/material/Box";
 import { useForm } from "react-hook-form";
-import DiffViewerComponent from "../components/DiffViewerComponent";
 
+import styles from "./home.module.css";
+import DiffViewerComponent from "../components/DiffViewerComponent";
 import * as resumeService from "../services/resume";
-import { Box } from "@mui/material";
 
 function Home() {
   const { register, handleSubmit, setValue, getValues } = useForm();
@@ -28,12 +24,13 @@ function Home() {
   }, [setValue]);
 
   const handleSaveDefaultResume = () => {
-    resumeService.saveDefaultResume(getValues("currentResume"));
+    const data = getValues("currentResume");
+    if (data) resumeService.saveDefaultResume(getValues("currentResume"));
   };
 
   return (
     <>
-      <h1>AI Resume Optimizer</h1>
+      <h1 className={styles.heading}>AI Resume Optimizer</h1>
       <Box sx={{ m: 10 }} />
       <form
         onSubmit={handleSubmit((data: any) => {
@@ -90,7 +87,7 @@ function Home() {
 
         <div style={{ margin: "20px auto" }}>
           {!responseLoaded && (
-            <Button variant="contained" color="success" type="submit">
+            <Button variant="contained" type="submit">
               Optimize resume
             </Button>
           )}
@@ -109,8 +106,20 @@ function Home() {
                     {...register("customInstructions")}
                   />
                   <Box sx={{ m: 2 }} />
-                  <Button variant="contained" type="submit">
+                  <Button
+                    variant="contained"
+                    type="submit"
+                    className={styles.buttonMargin}
+                  >
                     Re-optimize resume
+                  </Button>
+                  <Button
+                    variant="outlined"
+                    color="error"
+                    type="submit"
+                    className={styles.buttonMargin}
+                  >
+                    Reset
                   </Button>
                 </Grid>
                 <Grid xs={0} md={4} item={true}></Grid>
