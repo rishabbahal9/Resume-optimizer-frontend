@@ -44,12 +44,13 @@ function Home() {
       <h1 className={styles.heading}>AI Resume Optimizer</h1>
       <Box sx={{ m: 10 }} />
       <form
-        onSubmit={handleSubmit((data: any) => {
+        onSubmit={handleSubmit(async (data: any) => {
           setCurrentResume(data.currentResume);
           // Backend api call
-          const optimizedResumeValue =
-            resumeService.getOptimizedResume(data).optimizedResume;
-          setOptimizedResume(optimizedResumeValue);
+          const optimizedResumeValue = await resumeService.getOptimizedResume(
+            data
+          );
+          setOptimizedResume(optimizedResumeValue.optimizedResume);
           setValue("optimizedResume", optimizedResumeValue);
           setResponseLoaded(true);
         })}
@@ -80,7 +81,8 @@ function Home() {
                 rows={14}
                 variant="filled"
                 fullWidth
-                {...register("currentResume")}
+                {...register("currentResume", { required: true })}
+                required
               />
             </Item>
           </Grid>
