@@ -45,8 +45,8 @@ function Home() {
         })}
       >
         <Grid container>
-          <Grid xs={0} md={1} item={true}></Grid>
-          <Grid xs={12} md={4} item={true}>
+          <Grid xs={0} md={0.5} item={true}></Grid>
+          <Grid xs={12} md={5.25} item={true}>
             <Item>
               <TextField
                 id="filled-multiline-static"
@@ -56,11 +56,12 @@ function Home() {
                 variant="filled"
                 fullWidth
                 {...register("jobDescription", { required: true })}
+                required
               />
             </Item>
           </Grid>
-          <Grid xs={0} md={2} item={true}></Grid>
-          <Grid xs={12} md={4} item={true}>
+          <Grid xs={0} md={0.5} item={true}></Grid>
+          <Grid xs={12} md={5.25} item={true}>
             <Item>
               <TextField
                 id="filled-multiline-static"
@@ -73,16 +74,35 @@ function Home() {
               />
             </Item>
           </Grid>
-          <Grid xs={0} md={1} item={true}></Grid>
+          <Grid xs={0} md={0.5} item={true}></Grid>
         </Grid>
         <Box sx={{ m: 2 }} />
         <Grid container>
           <Grid xs={0} md={6} item={true}></Grid>
           <Grid xs={12} md={6} item={true}>
-            <Button variant="outlined" onClick={handleSaveDefaultResume}>
+            <Button
+              className={styles.buttonDist}
+              variant="outlined"
+              onClick={handleSaveDefaultResume}
+            >
               Save as default resume
             </Button>
           </Grid>
+        </Grid>
+        <Grid container>
+          <Grid xs={0} md={4} item={true}></Grid>
+          <Grid xs={12} md={4} item={true}>
+            <TextField
+              id="filled-multiline-static"
+              label="Custom instructions for AI (optional)"
+              multiline
+              rows={3}
+              variant="filled"
+              fullWidth
+              {...register("customInstructions")}
+            />
+          </Grid>
+          <Grid xs={0} md={4} item={true}></Grid>
         </Grid>
 
         <div style={{ margin: "20px auto" }}>
@@ -96,20 +116,10 @@ function Home() {
               <Grid container>
                 <Grid xs={0} md={4} item={true}></Grid>
                 <Grid xs={12} md={4} item={true}>
-                  <TextField
-                    id="filled-multiline-static"
-                    label="Custom instructions for AI"
-                    multiline
-                    rows={3}
-                    variant="filled"
-                    fullWidth
-                    {...register("customInstructions")}
-                  />
-                  <Box sx={{ m: 2 }} />
                   <Button
                     variant="contained"
                     type="submit"
-                    className={styles.buttonMargin}
+                    className={styles.buttonDist}
                   >
                     Re-optimize resume
                   </Button>
@@ -117,7 +127,7 @@ function Home() {
                     variant="outlined"
                     color="error"
                     type="submit"
-                    className={styles.buttonMargin}
+                    className={styles.buttonDist}
                   >
                     Reset
                   </Button>
@@ -131,8 +141,8 @@ function Home() {
         {responseLoaded && (
           <>
             <Grid container>
-              <Grid xs={0} md={1} item={true}></Grid>
-              <Grid xs={12} md={10} item={true}>
+              <Grid xs={0} md={0.5} item={true}></Grid>
+              <Grid xs={12} md={11} item={true}>
                 <TextField
                   id="filled-multiline-static"
                   label="Optimized resume"
@@ -152,7 +162,7 @@ function Home() {
                   splitView={true}
                 />
               </Grid>
-              <Grid xs={0} md={1} item={true}></Grid>
+              <Grid xs={0} md={0.5} item={true}></Grid>
             </Grid>
           </>
         )}
