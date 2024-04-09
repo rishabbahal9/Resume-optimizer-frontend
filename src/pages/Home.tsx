@@ -11,7 +11,7 @@ import DiffViewerComponent from "../components/DiffViewerComponent";
 import * as resumeService from "../services/resume";
 
 function Home() {
-  const { register, handleSubmit, setValue, getValues } = useForm();
+  const { register, handleSubmit, setValue, getValues, reset } = useForm();
 
   const [currentResume, setCurrentResume] = useState<string | undefined>();
   const [optimizedResume, setOptimizedResume] = useState<string | undefined>();
@@ -25,7 +25,18 @@ function Home() {
 
   const handleSaveDefaultResume = () => {
     const data = getValues("currentResume");
-    if (data) resumeService.saveDefaultResume(getValues("currentResume"));
+    if (data)
+      resumeService.saveDefaultResume({
+        defaultResume: getValues("currentResume"),
+      });
+  };
+
+  const handleReset = async () => {
+    reset();
+    const data = await resumeService.getDefaultResume();
+    setValue("currentResume", data.defaultResume);
+
+    setResponseLoaded(false);
   };
 
   return (
@@ -34,7 +45,6 @@ function Home() {
       <Box sx={{ m: 10 }} />
       <form
         onSubmit={handleSubmit((data: any) => {
-          console.log(data);
           setCurrentResume(data.currentResume);
           // Backend api call
           const optimizedResumeValue =
@@ -81,9 +91,9 @@ function Home() {
           <Grid xs={0} md={6} item={true}></Grid>
           <Grid xs={12} md={6} item={true}>
             <Button
-              className={styles.buttonDist}
               variant="outlined"
               onClick={handleSaveDefaultResume}
+              style={{ margin: "10px" }}
             >
               Save as default resume
             </Button>
@@ -116,18 +126,14 @@ function Home() {
               <Grid container>
                 <Grid xs={0} md={4} item={true}></Grid>
                 <Grid xs={12} md={4} item={true}>
-                  <Button
-                    variant="contained"
-                    type="submit"
-                    className={styles.buttonDist}
-                  >
+                  <Button variant="contained" type="submit">
                     Re-optimize resume
                   </Button>
                   <Button
                     variant="outlined"
                     color="error"
-                    type="submit"
-                    className={styles.buttonDist}
+                    onClick={handleReset}
+                    style={{ marginLeft: "10px" }}
                   >
                     Reset
                   </Button>
