@@ -4,6 +4,9 @@ import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import Item from "@mui/material/Grid";
 import Box from "@mui/material/Box";
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
+
 import { useForm } from "react-hook-form";
 
 import styles from "./home.module.css";
@@ -13,6 +16,7 @@ import * as resumeService from "../services/resume";
 function Home() {
   const { register, handleSubmit, setValue, getValues, reset } = useForm();
 
+  const [loading, setLoading] = useState<boolean>(false);
   const [currentResume, setCurrentResume] = useState<string | undefined>();
   const [optimizedResume, setOptimizedResume] = useState<string | undefined>();
   const [responseLoaded, setResponseLoaded] = useState<boolean>(false);
@@ -41,10 +45,18 @@ function Home() {
 
   return (
     <>
+      <Backdrop
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={loading}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
+
       <h1 className={styles.heading}>AI Resume Optimizer</h1>
       <Box sx={{ m: 10 }} />
       <form
         onSubmit={handleSubmit(async (data: any) => {
+          setLoading(true);
           setCurrentResume(data.currentResume);
           // Backend api call
           const optimizedResumeValue = await resumeService.getOptimizedResume(
@@ -53,6 +65,7 @@ function Home() {
           setOptimizedResume(optimizedResumeValue.optimizedResume);
           setValue("optimizedResume", optimizedResumeValue);
           setResponseLoaded(true);
+          setLoading(false);
         })}
       >
         <Grid container>
