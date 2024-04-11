@@ -62,7 +62,7 @@ function Home() {
           const optimizedResumeValue = await resumeService.getOptimizedResume(
             data
           );
-          setOptimizedResume(optimizedResumeValue.optimizedResume);
+          setOptimizedResume(optimizedResumeValue);
           setValue("optimizedResume", optimizedResumeValue);
           setResponseLoaded(true);
           setLoading(false);
@@ -177,11 +177,11 @@ function Home() {
                   }}
                 />
 
-                <DiffViewerComponent
-                  currentResume={currentResume}
-                  optimizedResume={optimizedResume}
-                  splitView={true}
-                />
+                  <DiffViewerComponent
+                    currentResume={currentResume}
+                    optimizedResume={optimizedResume}
+                    splitView={true}
+                  />
               </Grid>
               <Grid xs={0} md={0.5} item={true}></Grid>
             </Grid>
