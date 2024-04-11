@@ -1,6 +1,7 @@
-# Getting Started with Create React App
+# AI Resume optimizer
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This version works with Flask application in backend. Created with node v18.19.0 and React 18.2 in Typescript.
 
 ## Available Scripts
 
