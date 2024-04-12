@@ -3,6 +3,18 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 This version works with Flask application in backend. Created with node v18.19.0 and React 18.2 in Typescript.
 
+## How to run project with docker
+
+1. Build image
+```bash
+docker build -f Dockerfile -t frontend-react:latest .
+```
+
+2. Run a container from the image
+```bash
+docker run -d -it --rm -p 3007:3000 --env-file ./.env --name frontend-react-container frontend-react:latest
+```
+
 ## Available Scripts
 
 In the project directory, you can run:
